@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="anim">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/anim/ghost_esctemplate_build.zip!/" />
+      <root url="jar://$PROJECT_DIR$/anim/esctemplate.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
