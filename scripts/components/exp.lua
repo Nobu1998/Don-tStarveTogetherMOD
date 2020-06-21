@@ -61,6 +61,7 @@ function exp:LevelUp()
         self.inst.components.playervision:ForceNightVision(true)
         self.inst:AddTag("nightvision")
     end
+    self.inst.SoundEmitter:PlaySound("dontstarve/characters/wx78/levelup")
     self:ApplyUpgrades()
 end
 

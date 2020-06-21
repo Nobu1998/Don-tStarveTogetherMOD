@@ -24,13 +24,16 @@ end
 
 --被攻撃時に呼び出し
 local function OnAttacked(inst, data)
-    inst.components.sanity:DoDelta(-5)
-    data.attacker.components.health:DoDelta(-50)
+    local percent = math.random(1, 60)
+    if data.attacker.components.health and percent <= 5 + inst.components.exp.levelpoint then
+        inst.components.sanity:DoDelta(-10)
+        data.attacker.components.health:DoDelta(-50)
+    end
 end
 
 local function onkill(inst)
-    inst.components.health:DoDelta(15)
-    inst.components.sanity:DoDelta(15)
+    inst.components.health:DoDelta(10)
+    inst.components.sanity:DoDelta(10)
 end
 
 local function onload(inst)
@@ -42,6 +45,7 @@ end
 -- This initializes for both the server and client. Tags can be added here.
 local common_postinit = function(inst)
     inst:AddTag("woodcutter")
+    inst:AddTag("insomniac")
     inst:AddTag("shino")
     -- Minimap icon
     inst.MiniMapEntity:SetIcon( "esctemplate.tex" )
