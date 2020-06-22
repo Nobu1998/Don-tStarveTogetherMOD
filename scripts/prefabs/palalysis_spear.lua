@@ -1,33 +1,30 @@
 local assets =
 {
-    Asset("ANIM", "anim/spear.zip"),
-    Asset("ANIM", "anim/swap_spear.zip"),
-    Asset("ANIM", "anim/floating_items.zip"),
-
-    Asset("ANIM", "anim/palalysisspear.zip"),
-    Asset("ANIM", "anim/palalysis_spear.zip"),
+    Asset("ANIM", "anim/goldenspear.zip"),
+    Asset("ANIM", "anim/gold_spear.zip"),
+    Asset("IMAGE", "images/inventoryimages/palalysis_spear.tex"),
     Asset("ATLAS", "images/inventoryimages/palalysis_spear.xml"),
 }
 
 local function onattack_parasite(data, inst)
     local percent = math.random(1, 10)
-    --inst.components.health:DoDelta(100)
-    if data and data.brain and data.flag ~= true then
+    inst.components.health:DoDelta(100)
+    if data and data.brain and data.dosfleurstun ~= true then
         inst.components.health:DoDelta(100)
-        data.flag = true
+        data.dosfleurstun = true
         data.brain:Stop()
         if data.components.locomotor then
             data.components.locomotor:Stop()
         end
         data:DoTaskInTime(4, function()
             data.brain:Start()
-            data.flag = nil
+            data.dosfleurstun = nil
         end)
     end
 end
 
 local function onequip(inst, owner)
-    owner.AnimState:OverrideSymbol("swap_object", "swap_spear", "swap_spear")
+    owner.AnimState:OverrideSymbol("swap_object", "gold_spear", "swap_spear")
     owner.AnimState:Show("ARM_carry")
     owner.AnimState:Hide("ARM_normal")
 end
@@ -47,7 +44,7 @@ local function fn()
     MakeInventoryPhysics(inst)
 
     inst.AnimState:SetBank("spear")
-    inst.AnimState:SetBuild("swap_spear")
+    inst.AnimState:SetBuild("goldenspear")
     inst.AnimState:PlayAnimation("idle")
 
     inst:AddTag("sharp")

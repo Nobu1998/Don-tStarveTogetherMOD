@@ -35,6 +35,7 @@ Assets = {
 	Asset( "IMAGE", "images/names_gold_esctemplate.tex" ),
     Asset( "ATLAS", "images/names_gold_esctemplate.xml" ),
 
+    Asset("IMAGE", "images/inventoryimages/palalysis_spear.tex"),
     Asset("ATLAS", "images/inventoryimages/palalysis_spear.xml"),
 }
 
