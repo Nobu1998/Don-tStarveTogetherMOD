@@ -15,6 +15,16 @@ local start_inv = {
 
 local BEAVERVISION_COLOURCUBES = { night = "images/colour_cubes/beaver_vision_cc.tex", }
 
+local function runner(inst)
+    if TheWorld.state.phase == "night" then
+        if inst.components.exp.levelpoint >= 5 then
+            inst.components.playervision:ForceNightVision(true)
+            inst:AddTag("nightvision")
+            inst.components.playervision:SetCustomCCTable(BEAVERVISION_COLOURCUBES)
+        end
+    end
+end
+
 --攻撃時に呼び出し
 local function onattack(inst, data)
     local victim = data.target
@@ -50,9 +60,6 @@ local common_postinit = function(inst)
     -- Minimap icon
     inst.MiniMapEntity:SetIcon( "esctemplate.tex" )
     inst.soundsname = "willow"
-    if inst:HasTag("nightvision") then
-        inst.components.playervision:SetCustomCCTable(BEAVERVISION_COLOURCUBES)
-    end
 end
 
 -- This initializes for the server only. Components are added here.
@@ -67,9 +74,10 @@ local master_postinit = function(inst)
     inst:ListenForEvent("attacked", OnAttacked)
     inst:ListenForEvent("killed", onkill)
     inst:ListenForEvent("onattackother", onattack)
+    inst:ListenForEvent("clocktick", function() runner(inst) end, TheWorld)
     inst.OnLoad = onload
 
-	inst.components.hunger.hungerrate = 0.5
+	inst.components.hunger.hungerrate = 1 * TUNING.WILSON_HUNGER_RATE
 end
 
 return MakePlayerCharacter("esctemplate", prefabs, assets, common_postinit, master_postinit, start_inv)

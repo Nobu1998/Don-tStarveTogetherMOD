@@ -57,10 +57,6 @@ function exp:LevelUp()
     self.levelpoint = self.levelpoint + 1
     self.currenttimepiont = 0
     self.maxtimepiont = self.maxtimepiont + 10
-    if self.levelpoint >= 5 then
-        self.inst.components.playervision:ForceNightVision(true)
-        self.inst:AddTag("nightvision")
-    end
     self.inst.SoundEmitter:PlaySound("dontstarve/characters/wx78/levelup")
     self:ApplyUpgrades()
 end
