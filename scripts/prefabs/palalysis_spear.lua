@@ -6,20 +6,21 @@ local assets =
     Asset("ATLAS", "images/inventoryimages/palalysis_spear.xml"),
 }
 
-local function onattack_parasite(data, inst)
+local function onattack_parasite(inst, attacker, target)
     local percent = math.random(1, 10)
-    inst.components.health:DoDelta(100)
-    if data and data.brain and data.dosfleurstun ~= true then
-        inst.components.health:DoDelta(100)
-        data.dosfleurstun = true
-        data.brain:Stop()
-        if data.components.locomotor then
-            data.components.locomotor:Stop()
+
+    if percent == 5 then
+        if target ~= nil and target.brain and target.dosfleurstun ~= true then
+            target.dosfleurstun = true
+            target.brain:Stop()
+            if target.components.locomotor then
+                target.components.locomotor:Stop()
+            end
+            target:DoTaskInTime(4, function()
+                target.brain:Start()
+                target.dosfleurstun = nil
+            end)
         end
-        data:DoTaskInTime(4, function()
-            data.brain:Start()
-            data.dosfleurstun = nil
-        end)
     end
 end
 
